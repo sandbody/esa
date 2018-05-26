@@ -1,12 +1,14 @@
 package org.dieschnittstelle.jee.esa.ser;
 
-import java.io.ObjectOutputStream;
+import java.io.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
 
 public class TouchpointWebServiceServlet extends HttpServlet {
 
@@ -46,16 +48,47 @@ public class TouchpointWebServiceServlet extends HttpServlet {
 		}
 
 	}
-	
-	/*
+
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		logger.info("doDelete()");
+
+		TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext()
+				.getAttribute("touchpointCRUD");
+		try {
+			// set the status
+			resp.setStatus(HttpServletResponse.SC_OK);
+			String id = req.getParameter("itemToDelete");
+			logger.info("Incoming id is: "+id);
+			// obtain the output stream from the response and write the list of
+			// touchpoints into the stream
+			ObjectOutputStream oos = new ObjectOutputStream(
+					resp.getOutputStream());
+			// delete the object
+			long itemToDelete = Long.valueOf(id);
+			oos.writeObject(exec.deleteTouchpoint(itemToDelete));
+			oos.close();
+		} catch (Exception e) {
+			String err = "got exception: " + e;
+			logger.error(err, e);
+			throw new RuntimeException(e);
+		}
+	}
+
+
 	@Override	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) {
+		logger.info("doPost()");
 
 		// assume POST will only be used for touchpoint creation, i.e. there is
 		// no need to check the uri that has been used
 
 		// obtain the executor for reading out the touchpoints from the servlet context using the touchpointCRUD attribute
+		TouchpointCRUDExecutor exec = (TouchpointCRUDExecutor) getServletContext()
+				.getAttribute("touchpointCRUD");
+
+		response.setStatus(HttpServletResponse.SC_OK);
 
 		try {
 			// create an ObjectInputStream from the request's input stream
@@ -69,16 +102,31 @@ public class TouchpointWebServiceServlet extends HttpServlet {
 		
 			// then write the object to the response's output stream, using a
 			// wrapping ObjectOutputStream
-		
+
+			InputStream is = request.getInputStream();
+			ObjectInputStream  ois = new ObjectInputStream(is);
+
+			AbstractTouchpoint entity = (AbstractTouchpoint)ois .readObject();
 			// ... and write the object to the stream
-		
+			ObjectOutputStream oos = new ObjectOutputStream(
+					response.getOutputStream());
+
+			oos.writeObject(exec.createTouchpoint(entity));
+			oos.close();
 		} catch (Exception e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			throw new RuntimeException(e);
 		}
 
 	}
-	*/
 
+	private Object deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+		try(ByteArrayInputStream b = new ByteArrayInputStream(bytes)){
+			try(ObjectInputStream o = new ObjectInputStream(b)){
+				return o.readObject();
+			}
+		}
+	}
 
 	
 }

@@ -1,15 +1,12 @@
 package org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.ejb.Remote;
 //import javax.ejb.Remote;
 import javax.jws.WebService;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 
 import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
 
@@ -26,4 +23,8 @@ public interface TouchpointAccessRemote {
 	@GET
 	public List<AbstractTouchpoint> readAllTouchpoints();
 
+
+    @DELETE
+   @Path("/{touchpointId}")
+   public boolean deleteTouchpoint(@PathParam("touchpointId") long id);
 }

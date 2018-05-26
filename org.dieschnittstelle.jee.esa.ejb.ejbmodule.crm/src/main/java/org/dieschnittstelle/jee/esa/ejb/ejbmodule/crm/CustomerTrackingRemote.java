@@ -9,8 +9,8 @@ import org.dieschnittstelle.jee.esa.entities.crm.CustomerTransaction;
 @Remote
 public interface CustomerTrackingRemote {
 
-	public void createTransaction(CustomerTransaction transaction);
+    public void createTransaction(CustomerTransaction transaction);
 
-	public List<CustomerTransaction> readAllTransactions();
+    public List<CustomerTransaction> readAllTransactions();
 
 }

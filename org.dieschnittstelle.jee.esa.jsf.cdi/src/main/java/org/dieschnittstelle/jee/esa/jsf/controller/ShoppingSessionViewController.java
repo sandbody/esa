@@ -247,6 +247,7 @@ public class ShoppingSessionViewController implements Serializable {
 		 * the given touchpoints using StockSystem
 		 */
 		for (AbstractTouchpoint tp : tps) {
+
 			// we use a local map for being able to convert between touchpoint
 			// strings and touchpoint objects
 			this.touchpointsMap.put(tp.getName(), tp);

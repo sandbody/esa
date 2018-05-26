@@ -1,8 +1,5 @@
 package org.dieschnittstelle.jee.esa.jrs.client;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.dieschnittstelle.jee.esa.entities.crm.Address;
 import org.dieschnittstelle.jee.esa.entities.crm.StationaryTouchpoint;
@@ -10,6 +7,9 @@ import org.dieschnittstelle.jee.esa.jrs.ITouchpointCRUDService;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+
+import java.io.IOException;
+import java.util.List;
 
 public class ShowTouchpointRESTService {
 
@@ -85,6 +85,7 @@ public class ShowTouchpointRESTService {
 		/*
 		 * UE JRS1: add a call to the update method, passing tp
 		 */
+		tp = serviceClient.updateTouchpoint(tp);
 		logger.info("renamed touchpoint with id " + tp.getId() + " to " + tp.getName());
 
 		System.err.println("TestTouchpointRESTService: done.\n");

@@ -1,29 +1,37 @@
 package org.dieschnittstelle.jee.esa.entities.erp;
 
-import java.io.Serializable;
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.log4j.Logger;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.ws.RequestWrapper;
+import java.io.Serializable;
+import java.util.Objects;
 
+@XmlType(namespace = "http://dieschnittstelle.org/jee/esa/entities/erp")
+@Entity
 public class IndividualisedProductItem extends AbstractProduct implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5109263395081656350L;
 
-	protected static Logger logger = Logger.getLogger(IndividualisedProductItem.class);
+	private static Logger logger = Logger.getLogger(IndividualisedProductItem.class);
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5109263395081656350L;
 
+	@Enumerated(EnumType.STRING)
 	private ProductType productType;
 
 	private int expirationAfterStocked;
-	
+
+
 	public IndividualisedProductItem() {
 		logger.info("<constructor>");
 	}
-	
+
 	public IndividualisedProductItem(String name,ProductType type,int expirationAfterStocked) {
 		super(name);
 		this.productType = type;
@@ -45,24 +53,8 @@ public class IndividualisedProductItem extends AbstractProduct implements Serial
 	public void setExpirationAfterStocked(int expirationAfterStocked) {
 		this.expirationAfterStocked = expirationAfterStocked;
 	}
-	
-	public String toString() {
-		return "{IProductItem " + this.getId() + ", " + this.getName() + ", " + this.productType + "}";
-	}
-	
-	public boolean equals(Object other) {
-		
-		if (other.getClass() != this.getClass()) 
-			return false;
-		
-		return this.getId() == ((IndividualisedProductItem)other).getId();
-	}
-	
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
 
-	@PostLoad
+    @PostLoad
 	public void onPostLoad() {
 		logger.info("@PostLoad: " + this);
 	}
@@ -96,4 +88,28 @@ public class IndividualisedProductItem extends AbstractProduct implements Serial
 	public void onPreUpdate() {
 		logger.info("@PreUpdate: " + this);
 	}
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof IndividualisedProductItem)) return false;
+        if (!super.equals(o)) return false;
+        IndividualisedProductItem that = (IndividualisedProductItem) o;
+        return getExpirationAfterStocked() == that.getExpirationAfterStocked() &&
+                getProductType() == that.getProductType();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getProductType(), getExpirationAfterStocked());
+    }
+
+    @Override
+    public String toString() {
+        return "IndividualisedProductItem{" +
+                "productType=" + productType +
+                ", expirationAfterStocked=" + expirationAfterStocked +
+                '}';
+    }
 }

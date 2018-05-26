@@ -1,14 +1,15 @@
 package org.dieschnittstelle.jee.esa.wsv.client;
 
-import java.io.IOException;
-import java.util.List;
-
 import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
 import org.dieschnittstelle.jee.esa.entities.crm.Address;
 import org.dieschnittstelle.jee.esa.entities.crm.StationaryTouchpoint;
 import org.dieschnittstelle.jee.esa.wsv.client.service.ITouchpointCRUDService;
-
 import org.dieschnittstelle.jee.esa.wsv.interpreter.JAXRSClientInterpreter;
+
+import java.io.IOException;
+import java.lang.reflect.Proxy;
+import java.util.List;
 
 public class AccessRESTServiceWithInterpreter {
 
@@ -24,61 +25,64 @@ public class AccessRESTServiceWithInterpreter {
 		 * TODO: create an instance of the invocation handler passing the service
 		 * interface and the base url
 		 */
-        JAXRSClientInterpreter invocationHandler = null;
+        JAXRSClientInterpreter invocationHandler = new JAXRSClientInterpreter(ITouchpointCRUDService.class, "http://localhost:8888/org.dieschnittstelle.jee.esa.jrs/api");
 
 		/*
 		 * TODO: create a client for the web service using Proxy.newProxyInstance()
 		 */
-        ITouchpointCRUDService serviceClient = null;
+        ITouchpointCRUDService serviceClient = (ITouchpointCRUDService) Proxy.newProxyInstance(AccessRESTServiceWithInterpreter.class.getClassLoader(), new Class[]{ITouchpointCRUDService.class}, invocationHandler);
+
 
         show("serviceClient: " + serviceClient);
 
         step();
 
         // 1) read out all touchpoints
-        List<StationaryTouchpoint> tps = serviceClient.readAllTouchpoints();
+        List<AbstractTouchpoint> tps = serviceClient.readAllTouchpoints();
         show("read all: " + tps);
 
 
         // TODO: comment-in the call to delete() once this is handled by the invocation handler
-//		// 2) delete the touchpoint if there is one
-//		if (tps.size() > 0) {
-//          step();
-//			show("deleted: "
-//					+ serviceClient.deleteTouchpoint(tps.get(0).getId()));
-//		}
-//
+		// 2) delete the touchpoint if there is one
+		if (tps.size() > 0) {
+          step();
+			show("deleted: "
+					+ serviceClient.deleteTouchpoint(tps.get(0).getId()));
+		}
+
 //		// 3) create a new touchpoint
         step();
 
         Address addr = new Address("Luxemburger Strasse", "10", "13353",
                 "Berlin");
-        StationaryTouchpoint tp = new StationaryTouchpoint(-1,
+        AbstractTouchpoint tp = new StationaryTouchpoint(-1,
                 "BHT Verkaufsstand", addr);
-        tp = (StationaryTouchpoint)serviceClient.createTouchpoint(tp);
+
+        tp =  serviceClient.createTouchpoint(tp);
         show("created: " + tp);
 
         // TODO: comment-in the call to read() once this is handled
 //		/*
 //		 * 4) read out the new touchpoint
 //		 */
-//		show("read created: " + serviceClient.readTouchpoint(tp.getId()));
-//
+		show("read created: " + serviceClient.readTouchpoint(tp.getId()));
+
 
         // TODO: comment-in the call to update() once this is handled
 //		/*
 //		 * 5) update the touchpoint
 //		 */
 //		// change the name
-//		step();
-//		tp.setName("BHT Mensa");
+		step();
+		tp.setName("BHT Mensa");
 //
 //
-//		tp = serviceClient.updateTouchpoint(tp.getId(), tp);
-//		show("updated: " + tp);
+//		tp = serviceClient.updateTouchpoint(tp.getId(),  tp);
+		tp = serviceClient.updateTouchpoint(tp);
+
+		show("updated: " + tp);
 
     }
-
     public static void show(Object content) {
         System.err.println(content + "\n");
     }

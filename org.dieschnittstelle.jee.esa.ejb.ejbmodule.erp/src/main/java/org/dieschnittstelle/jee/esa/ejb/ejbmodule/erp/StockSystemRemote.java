@@ -4,12 +4,29 @@ import java.util.List;
 
 import org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem;
 
+import javax.ws.rs.*;
+
 /**
  * TODO JPA4:
  * this interface shall be implemented using the two CRUD EJBs for PointOfSale and StockItem via
  * local interface below, comments will give some hints at how the implementation could be done
  */
+
 public interface StockSystemRemote {
+
+    /**
+     * the base JNDI_PATH for the PreliminaryRequestBean EJB implementation of this view/interface
+     */
+    String BASE_JNDI_PATH = "ejb:org.dieschnittstelle.jee.esa.ejb/org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/StockSystemBean";
+    /**
+     * the view on this interface
+     */
+    String VIEW_JNDI_PATH = "!" + StockSystemRemote.class.getName();
+
+    /**
+     * The JNDI name for remote access to the implementing EJB.
+     */
+    String JNDI_PATH = BASE_JNDI_PATH + VIEW_JNDI_PATH;
 
 	/**
 	 * adds some units of a product to the stock of a point of sale
@@ -21,7 +38,7 @@ public interface StockSystemRemote {
 	 * @param pointOfSaleId
 	 * @param units
 	 */
-	public void addToStock(IndividualisedProductItem product,long pointOfSaleId,int units);
+	public void addToStock(IndividualisedProductItem product,  long pointOfSaleId,   int units);
 
 	/**
 	 * removes some units of a product from the stock of a point of sale
@@ -32,7 +49,7 @@ public interface StockSystemRemote {
 	 * @param pointOfSaleId
 	 * @param units
 	 */
-	public void removeFromStock(IndividualisedProductItem product,long pointOfSaleId,int units);
+	public void removeFromStock(IndividualisedProductItem product, long pointOfSaleId,  int units);
 
 	/**
 	 * returns all products on stock of some pointOfSale
@@ -67,7 +84,7 @@ public interface StockSystemRemote {
 	 * @param pointOfSaleId
 	 * @return
 	 */
-	public int getUnitsOnStock(IndividualisedProductItem product, long pointOfSaleId);
+	public int getUnitsOnStock(IndividualisedProductItem product,long pointOfSaleId);
 
 	/**
 	 * returns the total number of units on stock for some product

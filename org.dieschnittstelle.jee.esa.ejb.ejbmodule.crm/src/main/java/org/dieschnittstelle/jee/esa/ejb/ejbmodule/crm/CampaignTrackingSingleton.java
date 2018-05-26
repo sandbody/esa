@@ -7,9 +7,12 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.Local;
+import javax.ejb.Remote;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
+import org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.shopping.CampaignTrackingLocal;
 import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
 import org.dieschnittstelle.jee.esa.entities.crm.CampaignExecution;
 import org.apache.log4j.Logger;
@@ -22,8 +25,10 @@ import org.apache.log4j.Logger;
  * UE EJB1: kommentieren Sie die @Startup Annotation aus
  */
 @Startup
+// UE : PAT
+@Local(CampaignTrackingLocal.class)
 @javax.ejb.ConcurrencyManagement(javax.ejb.ConcurrencyManagementType.CONTAINER)
-public class CampaignTrackingSingleton implements CampaignTrackingRemote {
+public class CampaignTrackingSingleton implements CampaignTrackingLocal, CampaignTrackingRemote {
 
 	protected static Logger logger = Logger.getLogger(CampaignTrackingSingleton.class);
 	

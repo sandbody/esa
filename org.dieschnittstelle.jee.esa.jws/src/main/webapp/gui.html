@@ -189,23 +189,22 @@ function drawTouchpointsTable() {
 			td = document.createElement("td");
 			tr.appendChild(td);
 			td.appendChild(document.createTextNode(currentTouchpoint.name));
-			// street
-			td= document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.street));
-			// houseNr
-			td = document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.houseNr));
-			// zipCode
-			td = document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.zipCode));
-			// city
-			td = document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.city));			
-
+                // street
+                td = document.createElement("td");
+                tr.appendChild(td);
+                td.appendChild(document.createTextNode(currentTouchpoint.location.street));
+                // houseNr
+                td = document.createElement("td");
+                tr.appendChild(td);
+                td.appendChild(document.createTextNode(currentTouchpoint.location.houseNr));
+                // zipCode
+                td = document.createElement("td");
+                tr.appendChild(td);
+                td.appendChild(document.createTextNode(currentTouchpoint.location.zipCode));
+                // city
+                td = document.createElement("td");
+                tr.appendChild(td);
+                td.appendChild(document.createTextNode(currentTouchpoint.location.city));
 			// now create the delete form
 			td = document.createElement("td");
 			tr.appendChild(td);	
@@ -218,6 +217,8 @@ function drawTouchpointsTable() {
 			input.setAttribute("type", "submit");
 			input.setAttribute("value", "delete");
 		}
+
+
 }
 </script>
 <body onload="readAllTouchpoints()">

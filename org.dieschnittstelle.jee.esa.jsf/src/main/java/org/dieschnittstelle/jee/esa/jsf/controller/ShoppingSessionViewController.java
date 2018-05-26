@@ -3,6 +3,7 @@ package org.dieschnittstelle.jee.esa.jsf.controller;
 import org.apache.log4j.Logger;
 import org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.TouchpointAccessLocal;
 import org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.crud.CustomerCRUDLocal;
+import org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp.crud.StockSystemBean;
 import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
 import org.dieschnittstelle.jee.esa.entities.crm.Customer;
 import org.dieschnittstelle.jee.esa.jsf.model.ShoppingCartModel;
@@ -18,7 +19,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +35,8 @@ public class ShoppingSessionViewController {
 	 * model elements
 	 */
 
+	@EJB(lookup = "java:global/org.dieschnittstelle.jee.esa.ejb/org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/StockSystemBean!org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp.crud.StockSystemBean")
+    StockSystemBean stockSystemBean;
 	/**
 	 * for the shopping Cart we use a managed bean as model because this
 	 * simplifies sharing data between ourselves and the ProductsViewController
@@ -236,6 +238,7 @@ public class ShoppingSessionViewController {
 		 * the given touchpoints using StockSystem
 		 */
 		for (AbstractTouchpoint tp : tps) {
+
 			// we use a local map for being able to convert between touchpoint
 			// strings and touchpoint objects
 			this.touchpointsMap.put(tp.getName(), tp);

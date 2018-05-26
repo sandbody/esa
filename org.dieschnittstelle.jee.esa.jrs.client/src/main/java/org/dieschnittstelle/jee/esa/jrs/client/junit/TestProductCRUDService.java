@@ -1,17 +1,14 @@
 package org.dieschnittstelle.jee.esa.jrs.client.junit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
 import org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem;
 import org.dieschnittstelle.jee.esa.entities.erp.ProductType;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class TestProductCRUDService {
 	
@@ -57,7 +54,7 @@ public class TestProductCRUDService {
 		/* DELETE */
 		assertTrue("product can be deleted",  client.deleteProduct(PRODUCT_1.getId()));
 		assertNull("deleted product does not exist anymore", client.readProduct(PRODUCT_1.getId()));
-		assertEquals("product list is reduced on delete",prodlistBefore.size()+1,client.readAllProducts().size());				
+		assertEquals("product list is reduced on delete",prodlistBefore.size()+1,client.readAllProducts().size());
 			
 	}
 

@@ -2,12 +2,15 @@ package org.dieschnittstelle.jee.esa.ejb.client.junit;
 
 import static org.dieschnittstelle.jee.esa.ejb.client.Constants.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dieschnittstelle.jee.esa.ejb.client.Constants;
 import org.dieschnittstelle.jee.esa.ejb.client.ejbclients.ProductCRUDClient;
 import org.dieschnittstelle.jee.esa.ejb.client.ejbclients.StockSystemClient;
 import org.dieschnittstelle.jee.esa.ejb.client.ejbclients.TouchpointAccessClient;
+import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
+import org.dieschnittstelle.jee.esa.entities.erp.Campaign;
 import org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem;
 import org.junit.Before;
 import org.junit.Test;
@@ -72,7 +75,10 @@ public class TestStockSystem {
 		assertEquals("number of touchpoints correct for p1",2,touchpoints_p1.size());
 		assertEquals("number of touchpoints correct for p2",1,touchpoints_p2.size());
 		assertTrue("touchpoint correct for p2", touchpoints_p2.contains(new Long(TOUCHPOINT_1.getErpPointOfSaleId())));
-		
+        List<AbstractProduct> list = productCRUDClient.readAllProducts();
+        List<IndividualisedProductItem> itemList = stockSystemClient.getAllProductsOnStock();
+		// Added by me
+        assertTrue("size of products grater then the products on stocks ", (list.size() >= itemList.size()));
 }
 	
 

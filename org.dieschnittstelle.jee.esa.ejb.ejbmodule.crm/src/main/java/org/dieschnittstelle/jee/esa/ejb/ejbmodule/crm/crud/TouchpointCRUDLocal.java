@@ -17,6 +17,6 @@ public interface TouchpointCRUDLocal {
 	
 	public AbstractTouchpoint updateTouchpoint(AbstractTouchpoint Touchpoint);
 		
-	public boolean deleteTouchpoint(int id);
+	public boolean deleteTouchpoint(long id);
 
 }

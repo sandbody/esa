@@ -31,5 +31,9 @@ public class TouchpointAccessClient implements TouchpointAccessRemote {
 		
 		return created;
 	}
-		
+
+
+    public boolean deleteTouchpoint( long id) {
+        return touchpointAccessProxy.deleteTouchpoint(id);
+    }
 }

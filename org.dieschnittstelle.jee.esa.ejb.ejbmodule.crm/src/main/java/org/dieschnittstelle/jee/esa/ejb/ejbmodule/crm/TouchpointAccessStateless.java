@@ -6,6 +6,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.crud.TouchpointCRUDLocal;
 import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
@@ -52,8 +55,19 @@ public class TouchpointAccessStateless implements
 		// return it
 		return touchpoint;
 	}
-	
-	// for testing class loading
+
+    @Override
+    public List<AbstractTouchpoint> readAllTouchpoints() {
+        return touchpointCRUD.readAllTouchpoints();
+    }
+
+    @Override
+    public boolean deleteTouchpoint(long id) {
+        return touchpointCRUD.deleteTouchpoint(id);
+    }
+
+
+    // for testing class loading
 	private void logProductBundleKlass() {
 		StringBuffer log = new StringBuffer();
 		log.append(CrmProductBundle.class + "\n");
@@ -67,9 +81,7 @@ public class TouchpointAccessStateless implements
 		logger.info("class loader hierarchy of CrmProductBundle is: \n" + log);	
 	}
 
-	@Override
-	public List<AbstractTouchpoint> readAllTouchpoints() {
-		return touchpointCRUD.readAllTouchpoints();
-	}
+
+
 
 }

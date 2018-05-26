@@ -10,6 +10,7 @@ import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
 import org.dieschnittstelle.jee.esa.entities.erp.Campaign;
 import org.dieschnittstelle.jee.esa.entities.erp.ProductBundle;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -72,8 +73,11 @@ public class TestProductCRUD {
 		assertEquals("product list is appended on create for campaigns", 3, client.readAllProducts().size()
 				- prodlistBefore.size());
 
+		//FIX: Bundle enthält zwei Produkte
 		Campaign createdCampaign = (Campaign) client.readProduct(CAMPAIGN_1.getId());
-		assertEquals("campaign contains correct number of bundles", createdCampaign.getBundles().size(), 2);
+		assertEquals("campaign contains correct number of bundles", 2, createdCampaign.getBundles().size());
+
+
 
 		// make sure that campaign does not use cascade on products (to make clear that we are testing on the first bundle, which is the one we added for PRODUCT_1, we cast to
 		// List, which is the type actually used for the bundles)

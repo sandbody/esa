@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
+import org.dieschnittstelle.jee.esa.entities.crm.CrmProductBundle;
 import org.dieschnittstelle.jee.esa.entities.crm.Customer;
 import org.dieschnittstelle.jee.esa.entities.crm.CustomerTransaction;
 import org.apache.log4j.Logger;
@@ -36,11 +37,13 @@ public class CustomerTransactionCRUDStateless implements
 		 * UE JPA1.1
 		 */
 		// persist each bundle
-//		for (CrmProductBundle bundle : transaction.getProducts()) {
-//			logger.info("createTransaction(): will manually persist bundle: " + bundle);
-//			em.persist(bundle);
-//			logger.info("createTransaction(): persisted bundle: " + bundle);
-//		}
+
+
+		for (CrmProductBundle bundle : transaction.getProducts()) {
+			logger.info("createTransaction(): will manually persist bundle: " + bundle);
+			em.persist(bundle);
+			logger.info("createTransaction(): persisted bundle: " + bundle);
+		}
 
 		// persit the transaction
 		em.persist(transaction);

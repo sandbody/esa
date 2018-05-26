@@ -66,7 +66,7 @@ public class TouchpointCRUDStateless implements TouchpointCRUDRemote,
 	}
 
 	@Override
-	public boolean deleteTouchpoint(int id) {
+	public boolean deleteTouchpoint(long id) {
 		logger.info("deleteTouchpoint(): " + id);
 
 		em.remove(em.find(AbstractTouchpoint.class, id));
@@ -80,7 +80,7 @@ public class TouchpointCRUDStateless implements TouchpointCRUDRemote,
 	public List<AbstractTouchpoint> readAllTouchpoints() {
 		logger.info("readAllTouchpoints()");
 
-		Query query = em.createQuery("FROM AbstractTouchpoint");
+		Query query = em.createQuery("SELECT tp FROM AbstractTouchpoint tp");
 
 		List<AbstractTouchpoint> tps = (List<AbstractTouchpoint>) query
 				.getResultList();

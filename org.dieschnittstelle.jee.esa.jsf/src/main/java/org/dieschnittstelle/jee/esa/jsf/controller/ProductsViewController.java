@@ -1,20 +1,19 @@
 package org.dieschnittstelle.jee.esa.jsf.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp.crud.ProductCRUDLocal;
+import org.dieschnittstelle.jee.esa.entities.crm.CrmProductBundle;
+import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
+import org.dieschnittstelle.jee.esa.jsf.model.ShoppingCartModel;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
-import org.dieschnittstelle.jee.esa.entities.crm.CrmProductBundle;
-import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
-import org.dieschnittstelle.jee.esa.jsf.Constants;
-import org.dieschnittstelle.jee.esa.jsf.model.ShoppingCartModel;
-import org.apache.log4j.Logger;
+import java.util.List;
+import java.util.Map;
 
 @ManagedBean(name = "productsVC")
 @SessionScoped
@@ -28,6 +27,8 @@ public class ProductsViewController {
 		logger.info("<constructor>");
 	}
 
+    @EJB(lookup = "java:global/org.dieschnittstelle.jee.esa.ejb/org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/ProductCRUDBean!org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp.crud.ProductCRUDLocal")
+    ProductCRUDLocal productCRUDBean;
 	/**
 	 * use the shopping cart
 	 */
@@ -41,11 +42,12 @@ public class ProductsViewController {
 		logger.info("setShoppingCartModel(): " + shoppingCartModel);
 		this.shoppingCartModel = shoppingCartModel;
 	}
-	
+
+
 	/*
 	 * UE JSF1: use the products bean instead of the local list of products
 	 */
-	private List<AbstractProduct> products = new ArrayList<AbstractProduct>();
+	private List<AbstractProduct> products = null;
 
 	/*
 	 * we need getters and setters for the bean attributes accessed via facelets
@@ -61,9 +63,11 @@ public class ProductsViewController {
 	@PostConstruct
 	public void startup() {
 		logger.info("@PostConstruct: " + shoppingCartModel);
-		// we add test products here
-		products.add(Constants.PRODUCT_1);
-		products.add(Constants.PRODUCT_2);
+        products = productCRUDBean.readAllProducts();
+        // we add test products here
+//		products.add(Constants.PRODUCT_1);
+//		products.add(Constants.PRODUCT_2);
+
 	}
 	
 	/**

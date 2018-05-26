@@ -1,16 +1,15 @@
 package org.dieschnittstelle.jee.esa.jrs;
 
-import java.util.List;
+import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.entities.GenericCRUDExecutor;
+import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
+import org.dieschnittstelle.jee.esa.entities.crm.StationaryTouchpoint;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Context;
-
-import org.apache.log4j.Logger;
-import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
-import org.dieschnittstelle.jee.esa.entities.crm.StationaryTouchpoint;
-import org.dieschnittstelle.jee.esa.entities.GenericCRUDExecutor;
+import java.util.List;
 
 public class TouchpointCRUDWebServiceRESTImpl implements ITouchpointCRUDWebServiceREST {
 	
@@ -66,4 +65,9 @@ public class TouchpointCRUDWebServiceRESTImpl implements ITouchpointCRUDWebServi
 	 * UE JRS: implement the method for updating touchpoints
 	 */
 
+    @Override
+    public StationaryTouchpoint updateTouchpoint(StationaryTouchpoint touchpoint) {
+        StationaryTouchpoint tp = (StationaryTouchpoint)  this.touchpointCRUD.updateObject(touchpoint);
+        return tp;
+    }
 }

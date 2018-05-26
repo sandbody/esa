@@ -5,6 +5,7 @@ import static org.dieschnittstelle.jee.esa.ejb.client.Constants.*;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.ejb.client.shopping.ShoppingSessionFacadeClient;
 import org.dieschnittstelle.jee.esa.entities.crm.CampaignExecution;
 import org.dieschnittstelle.jee.esa.entities.crm.Customer;
 import org.dieschnittstelle.jee.esa.entities.crm.CustomerTransaction;
@@ -53,10 +54,10 @@ public class TotalUsecase {
 			createStock();
 			prepareCampaigns();
 			createCustomers();
+            doShopping();
+            showTransactions();
 
-			doShopping();
 
-			showTransactions();
 		} catch (Exception e) {
 			logger.error("got exception: " + e, e);
 		}
@@ -128,43 +129,44 @@ public class TotalUsecase {
 	}
 
 	public void doShopping() {
-		try {
-			while (true) {
-				try {
-					// create a shopping session and initialise it such that
-					// it can access the required beans
-					ShoppingBusinessDelegate session = new ShoppingSession();
-					// for PAT1, use the ShoppingSessionFacadeClient as implementation of session
-					// ShoppingBusinessDelegate session = new ShoppingSessionFacadeClient();
-					
-					session.initialise();
 
-					// add a customer and a touchpoint
-					session.setCustomer(Constants.CUSTOMER_1);
-					session.setTouchpoint(Constants.TOUCHPOINT_1);
+                try {
+                    while (true) {
+                        try {
+                            // create a shopping session and initialise it such that
+                            // it can access the required beans
+                            //ShoppingBusinessDelegate session = new ShoppingSession();
+                            // for PAT1, use the ShoppingSessionFacadeClient as implementation of session
+                            ShoppingBusinessDelegate session = new ShoppingSessionFacadeClient();
 
-					// now add items
-					session.addProduct(Constants.PRODUCT_1, 2);
-					session.addProduct(Constants.PRODUCT_1, 3);
-					session.addProduct(Constants.PRODUCT_2, 2);
-					session.addProduct(Constants.CAMPAIGN_1, 1);
-					session.addProduct(Constants.CAMPAIGN_2, 2);
+                            session.initialise();
 
-					if (this.stepping) Utils.step();
+                            // add a customer and a touchpoint
+                            session.setCustomer(Constants.CUSTOMER_1);
+                            session.setTouchpoint(Constants.TOUCHPOINT_1);
 
-					// now try to commit the session
-					session.purchase();
-				} catch (Exception e) {
-					logger.error(e.getMessage(), e);
-					// throwing exceptions out of main is bad style, yet we
-					// need it to interrupt shopping in TotalUsecase
-					throw new RuntimeException(e);
-				}
-				if (this.stepping) Utils.step();
-			}
-		} catch (Exception e) {
-			logger.error("got exception during shopping: " + e, e);
-		}
+                            // now add items
+                            session.addProduct(Constants.PRODUCT_1, 2);
+                            session.addProduct(Constants.PRODUCT_1, 3);
+                            session.addProduct(Constants.PRODUCT_2, 2);
+                            session.addProduct(Constants.CAMPAIGN_1, 1);
+                            session.addProduct(Constants.CAMPAIGN_2, 2);
+
+                            if (this.stepping) Utils.step();
+
+                            // now try to commit the session
+                            session.purchase();
+                        } catch (Exception e) {
+                            logger.error(e.getMessage(), e);
+                            // throwing exceptions out of main is bad style, yet we
+                            // need it to interrupt shopping in TotalUsecase
+                            throw new RuntimeException(e);
+                        }
+                        if (this.stepping) Utils.step();
+                    }
+                } catch (Exception e) {
+                    logger.error("got exception during shopping: " + e, e);
+                }
 	}
 
 	public void showTransactions() {

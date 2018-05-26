@@ -8,10 +8,12 @@ import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.TouchpointAccessLocal;
+import org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp.StockSystemLocal;
 import org.dieschnittstelle.jee.esa.entities.crm.AbstractTouchpoint;
 import org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem;
 import org.dieschnittstelle.jee.esa.entities.erp.PointOfSale;
@@ -35,6 +37,8 @@ public class StockSystemViewController {
 	 * .ejb.ejbmodule.erp/StockSystemSingleton!org.dieschnittstelle.jee
 	 * .esa.ejb.ejbmodule.erp.StockSystemLocal
 	 */
+    @Resource(lookup = "java:global/org.dieschnittstelle.jee.esa.ejb/org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/StockSystemSingleton!org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp.StockSystemLocal")
+    private StockSystemLocal stockSystemLocal;
 
 	/*
 	 * use the helper bean - this is needed for JSF6
@@ -50,6 +54,8 @@ public class StockSystemViewController {
 	 * .ejb.ejbmodule.crm/TouchpointAccessStateless
 	 * !org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.TouchpointAccessLocal
 	 */
+    @Resource(mappedName = "java:global/org.dieschnittstelle.jee.esa.ejb/org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm/TouchpointAccessStateless!org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.TouchpointAccessLocal")
+    private TouchpointAccessLocal touchpointAccess;
 
 	/*
 	 * these are local structures created from the data read out from the beans
@@ -75,7 +81,7 @@ public class StockSystemViewController {
 		 * TODO: we accesss the parameters from the FacesContext.getCurrentInstance()
 		 * .getExternalContext().getRequestParameterMap()
 		 */
-
+      Map<String, String> requestMap =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		/* TODO: read out the parameter(s) that we need */
 
 		/*

@@ -7,14 +7,24 @@
 	<enterprise-beans>
 		<session>
 			<ejb-name>ShoppingCartStateful</ejb-name>
-			<!-- <ejb-class>ShoppingCartStateful</ejb-class>  -->
+			<ejb-class>org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.ShoppingCartStateful</ejb-class>
 			<!-- UE EJB1: setzen Sie den timeout auf 100 -->
 			<stateful-timeout>
-				<timeout>1000000</timeout>
+				<timeout>100000</timeout>
 				<unit>Milliseconds</unit>
 			</stateful-timeout>
 		</session>
+        <session>
+            <ejb-name>ShoppingSessionBean</ejb-name>
+            <ejb-class>org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.shopping.ShoppingSessionBean</ejb-class>
+            <session-type>Stateful</session-type>
+            <stateful-timeout>
+                <timeout>10000</timeout>
+                <unit>Milliseconds</unit>
+            </stateful-timeout>
+        </session>
 	</enterprise-beans>
+
 	<interceptors>
 		<interceptor>
 			<interceptor-class>org.dieschnittstelle.jee.esa.ejb.interceptors.LoggingInterceptor</interceptor-class>

@@ -7,12 +7,6 @@
         <element id="file-copy" path="$PROJECT_DIR$/org.dieschnittstelle.jee.esa.ejb/target/ejb-earapp-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="dir-copy" path="$PROJECT_DIR$/org.dieschnittstelle.jee.esa.ejb/src/main/application" />
-      <element id="archive" name="org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.jar">
-        <element id="module-output" name="ejb-ejbmodule-crm" />
-      </element>
-      <element id="archive" name="org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp.jar">
-        <element id="module-output" name="ejb-ejbmodule-erp" />
-      </element>
       <element id="directory" name="lib">
         <element id="archive" name="org.dieschnittstelle.jee.esa.entities.crm.jar">
           <element id="module-output" name="lib-entities-crm" />

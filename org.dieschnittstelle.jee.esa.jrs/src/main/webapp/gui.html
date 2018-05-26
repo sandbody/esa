@@ -3,6 +3,69 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Touchpoints</title>
+    <style>
+
+        #touchpointsTable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #touchpointsTable  th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #touchpointsTable th, #touchpointsTable th td , #touchpointsTable th tr{
+            text-align: left;
+            padding: 8px;
+        }
+
+        #touchpointsTable tr:nth-child(even) ,  #touchpointsTable th tr:nth-child(even){
+            background-color: #f2f2f2
+        }
+
+        #createForm {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        #createForm table{
+            width: 50%;
+        }
+
+        #createForm table td{
+            padding: 10px;
+        }
+
+        #createForm table td input[type=text],#createForm table td input[type=number]{
+            width: 50%;
+            padding: 8px 8px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+
+        #createForm input[type=submit] , #createForm table td input[type=delete]{
+            width: 50%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #createForm input[type=submit]:hover ,  #createForm input[type=delete]:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+
 </head>
 <script type="text/javascript">
 var touchpoints;
@@ -190,21 +253,23 @@ function drawTouchpointsTable() {
 			tr.appendChild(td);
 			td.appendChild(document.createTextNode(currentTouchpoint.name));
 			// street
-			td= document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.street));
-			// houseNr
-			td = document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.houseNr));
-			// zipCode
-			td = document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.zipCode));
-			// city
-			td = document.createElement("td");
-			tr.appendChild(td);
-			td.appendChild(document.createTextNode(currentTouchpoint.location.city));			
+            // street
+            td = document.createElement("td");
+            tr.appendChild(td);
+            td.appendChild(document.createTextNode(currentTouchpoint.location.street));
+            // houseNr
+            td = document.createElement("td");
+            tr.appendChild(td);
+            td.appendChild(document.createTextNode(currentTouchpoint.location.houseNr));
+            // zipCode
+            td = document.createElement("td");
+            tr.appendChild(td);
+            td.appendChild(document.createTextNode(currentTouchpoint.location.zipCode));
+            // city
+            td = document.createElement("td");
+            tr.appendChild(td);
+            td.appendChild(document.createTextNode(currentTouchpoint.location.city));
+            // now create the delete form
 
 			// now create the delete form
 			td = document.createElement("td");
@@ -218,35 +283,37 @@ function drawTouchpointsTable() {
 			input.setAttribute("type", "submit");
 			input.setAttribute("value", "delete");
 		}
+
 }
 </script>
 <body onload="readAllTouchpoints()">
-	<h3>Touchpoints</h3>
+<!--  create a new touchpoint -->
+<h3>New Touchpoint</h3>
+<form id="createForm" method="POST"
+      action="javascript:createTouchpoint(document.getElementById('createForm'))">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+            <td>Street and HouseNr:</td>
+            <td><input type="text" name="street"><input type="text"
+                                                        size="4" name="houseNr"></td>
+        </tr>
+        <tr>
+            <td>Zip Code and City:</td>
+            <td><input type="number" name="zipCode" size="5"><input
+                    type="text" name="city"></td>
+        </tr>
+    </table>
+    <input type="submit" value="create" />
+</form>
 
-	<!-- create a table -->
-	<table border="1" id="touchpointsTable">
-	</table>
-	<!--  create a new touchpoint -->
-	<h3>New Touchpoint</h3>
-	<form id="createForm" method="POST"
-		action="javascript:createTouchpoint(document.getElementById('createForm'))">
-		<table>
-			<tr>
-				<td>Name:</td>
-				<td><input type="text" name="name"></td>
-			</tr>
-			<tr>
-				<td>Street and HouseNr:</td>
-				<td><input type="text" name="street"><input type="text"
-					size="4" name="houseNr"></td>
-			</tr>
-			<tr>
-				<td>Zip Code and City:</td>
-				<td><input type="number" name="zipCode" size="5"><input
-					type="text" name="city"></td>
-			</tr>
-		</table>
-		<input type="submit" value="create" />
-	</form>
+
+<h3>Touchpoints</h3>
+<!-- create a table -->
+<table border="1" id="touchpointsTable">
+</table>
 </body>
 </html>

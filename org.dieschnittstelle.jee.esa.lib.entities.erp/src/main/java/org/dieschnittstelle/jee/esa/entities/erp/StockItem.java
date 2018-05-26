@@ -1,32 +1,24 @@
 package org.dieschnittstelle.jee.esa.entities.erp;
 
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
-import javax.persistence.PostRemove;
-import javax.persistence.PostUpdate;
-import javax.persistence.PrePersist;
-import javax.persistence.PreRemove;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.apache.log4j.Logger;
 
-//@Entity
+import java.util.Objects;
+
+@Entity
 @Table(name = "stock")
 @IdClass(ProductAtPosPK.class)
 public class StockItem {
 
-	protected static Logger logger = Logger.getLogger(StockItem.class);
+	private static Logger logger = Logger.getLogger(StockItem.class);
 
 	@Id
 	@ManyToOne
 	private PointOfSale pos;
 
 	@Id
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private IndividualisedProductItem product;
 
 	private int price;
@@ -107,12 +99,7 @@ public class StockItem {
 		logger.info("onPreUpdate(): " + this);
 	}
 
-	public String toString() {
-		return "{StockItemEntity " + this.price + ", " + this.product + "@"
-				+ this.pos + "}";
-	}
-
-	public int getUnits() {
+    public int getUnits() {
 		return units;
 	}
 
@@ -120,4 +107,19 @@ public class StockItem {
 		this.units = units;
 	}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StockItem)) return false;
+        StockItem stockItem = (StockItem) o;
+        return getPrice() == stockItem.getPrice() &&
+                getUnits() == stockItem.getUnits() &&
+                Objects.equals(getPos(), stockItem.getPos()) &&
+                Objects.equals(getProduct(), stockItem.getProduct());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPos(), getProduct(), getPrice(), getUnits());
+    }
 }

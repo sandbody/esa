@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.ejb.*;
 
 import org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.crud.CustomerTransactionCRUDLocal;
+import org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm.shopping.CustomerTrackingLocal;
 import org.dieschnittstelle.jee.esa.entities.crm.CustomerTransaction;
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,8 @@ import org.apache.log4j.Logger;
  * allows read/write access to a customer's shopping history
  */
 @Stateless(name="customerTrackingSystem")
-public class CustomerTrackingStateless implements CustomerTrackingRemote {
+@Local(CustomerTrackingLocal.class)
+public class CustomerTrackingStateless implements CustomerTrackingLocal, CustomerTrackingRemote {
 
 	protected static Logger logger = Logger
 			.getLogger(CustomerTrackingStateless.class);
@@ -32,6 +33,7 @@ public class CustomerTrackingStateless implements CustomerTrackingRemote {
 		logger.info("<constructor>: " + this);
 	}
 
+	@TransactionAttribute(TransactionAttributeType.MANDATORY)
 	public void createTransaction(CustomerTransaction transaction) {
 		logger.info("createTransaction(): " + transaction);
 		
@@ -52,5 +54,7 @@ public class CustomerTrackingStateless implements CustomerTrackingRemote {
 	public void finalise() {
 		logger.info("@PreDestroy");
 	}
+
+
 
 }

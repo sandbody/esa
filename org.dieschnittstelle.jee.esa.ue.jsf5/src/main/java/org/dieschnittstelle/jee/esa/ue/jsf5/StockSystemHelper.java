@@ -170,7 +170,7 @@ public class StockSystemHelper {
 	/**
 	 * this must be used for JSF6
 	 * 
-	 * TODO: access your ShoppingSessionFacade here - you should declare it as a @Resource obtaining a client stub via dependency injection
+	 * TODO: access your ShoppingSessionFacadeRemote here - you should declare it as a @Resource obtaining a client stub via dependency injection
 	 */
 	public void doShopping() {
 		try {

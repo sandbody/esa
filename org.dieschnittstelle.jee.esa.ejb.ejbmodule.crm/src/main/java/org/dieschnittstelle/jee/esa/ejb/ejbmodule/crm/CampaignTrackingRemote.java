@@ -9,14 +9,14 @@ import org.dieschnittstelle.jee.esa.entities.crm.CampaignExecution;
 
 @Remote
 public interface CampaignTrackingRemote {
+    public void addCampaignExecution(CampaignExecution campaign);
 
-	public void addCampaignExecution(CampaignExecution campaign);
-	
-	public int existsValidCampaignExecutionAtTouchpoint(long erpProductId,
-			AbstractTouchpoint tp);
-	
-	public void purchaseCampaignAtTouchpoint(long erpProductId,
-			AbstractTouchpoint tp, int units);
-	
-	public List<CampaignExecution> getAllCampaignExecutions();
+    public int existsValidCampaignExecutionAtTouchpoint(long erpProductId,
+                                                        AbstractTouchpoint tp);
+
+    public void purchaseCampaignAtTouchpoint(long erpProductId,
+                                             AbstractTouchpoint tp, int units);
+
+    public List<CampaignExecution> getAllCampaignExecutions();
+
 }

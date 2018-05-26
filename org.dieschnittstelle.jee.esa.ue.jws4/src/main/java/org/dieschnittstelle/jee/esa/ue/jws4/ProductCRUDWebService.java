@@ -1,50 +1,88 @@
 package org.dieschnittstelle.jee.esa.ue.jws4;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.log4j.Logger;
+import org.dieschnittstelle.jee.esa.entities.GenericCRUDExecutor;
+import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.jws.soap.SOAPBinding;
-import javax.jws.soap.SOAPBinding.ParameterStyle;
 import javax.servlet.ServletContext;
-import javax.ws.rs.GET;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.ws.RequestWrapper;
+import javax.xml.ws.ResponseWrapper;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-
-import org.dieschnittstelle.jee.esa.entities.GenericCRUDExecutor;
-import org.dieschnittstelle.jee.esa.entities.erp.AbstractProduct;
-import org.dieschnittstelle.jee.esa.entities.erp.Campaign;
-import org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem;
-import org.dieschnittstelle.jee.esa.entities.erp.ProductType;
+import java.util.List;
 
 /*
  * UE JWS4: machen Sie die Funktionalitaet dieser Klasse als Web Service verfuegbar und verwenden Sie fuer 
  * die Umetzung der beiden Methoden die Instanz von GenericCRUDExecutor<AbstractProduct>, 
  * die Sie aus dem ServletContext auslesen koennen
+ *
  */
+@WebService(serviceName = "ProductCRUDSOAPService" , portName = "ProductServicePort", targetNamespace = "http://dieschnittstelle.org/jee/esa/jws")
 public class ProductCRUDWebService {
+    protected static Logger logger = Logger
+            .getLogger(ProductCRUDWebService.class);
 
-	public List<AbstractProduct> readAllProducts() {
-		return new ArrayList();
+    @Resource
+    WebServiceContext context;
+ // Defaulteinstellung: Alle Methoden mit Sichtbarkeit public sind automatisch als @WebMethod definiert. Daher keine zusätzliche Annotation
+
+    public List<AbstractProduct> readAllProducts() {
+        logger.info("readAllProducts()");
+
+        GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ((ServletContext) context
+                .getMessageContext().get(MessageContext.SERVLET_CONTEXT))
+                .getAttribute("productCRUD");
+
+        return productCRUD.readAllObjects();
 	}
 
-	public AbstractProduct createProduct(AbstractProduct product) {
-		return product;
+    public AbstractProduct createProduct(AbstractProduct product) {
+        logger.info("createProduct()");
+
+        GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ((ServletContext) context
+                .getMessageContext().get(MessageContext.SERVLET_CONTEXT))
+                .getAttribute("productCRUD");
+
+        return productCRUD.createObject(product);
 	}
 
 	public AbstractProduct updateProduct(AbstractProduct update) {
-		return update;
+        logger.info("updateProduct()");
+
+        GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ((ServletContext) context
+                .getMessageContext().get(MessageContext.SERVLET_CONTEXT))
+                .getAttribute("productCRUD");
+
+        return productCRUD.updateObject(update);
+
 	}
 
 	public boolean deleteProduct(long id) {
-		return false;
+        logger.info("deleteProduct()");
+
+        GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ((ServletContext) context
+                .getMessageContext().get(MessageContext.SERVLET_CONTEXT))
+                .getAttribute("productCRUD");
+
+        return productCRUD.deleteObject(id);
 	}
 
-	public IndividualisedProductItem readProduct(long id) {
-		return null;
+	public AbstractProduct readProduct(long id) {
+        logger.info("readProduct()");
+
+        GenericCRUDExecutor<AbstractProduct> productCRUD = (GenericCRUDExecutor<AbstractProduct>) ((ServletContext) context
+                .getMessageContext().get(MessageContext.SERVLET_CONTEXT))
+                .getAttribute("productCRUD");
+
+        return  productCRUD.readObject(id);
 	}
 
 }

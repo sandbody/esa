@@ -1,0 +1,40 @@
+# Created by .ignore support plugin (hsz.mobi)
+Würde .DS_Store löschen
+Würde .idea/libraries/Maven__org_jetbrains_annotations_15_0.xml löschen
+Würde .idea/workspace.xml löschen
+Würde org.dieschnittstelle.jee.esa.bas/src/main/java/org/dieschnittstelle/jee/esa/basics/annotations/DisplayAs.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.client/src/main/java/org/dieschnittstelle/jee/esa/ejb/client/ejbclients/StockSystemClientREST.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.client/src/main/java/org/dieschnittstelle/jee/esa/ejb/client/junit/TestStockSystemREST.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.client/target/ löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/crm/exceptions/ löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/crm/shopping/CampaignTrackingLocal.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/crm/shopping/CustomerTrackingLocal.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/crm/shopping/ShoppingSessionBean.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/crm/shopping/ShoppingSessionFacadeRemote.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.crm/target/ löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/StockSystemApplication.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/StockSystemRemoteREST.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/crud/ProductCRUDBean.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/crud/ProductCRUDLocal.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/crud/StockItemCRUDBean.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/crud/StockSystemBean.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/crud/StockSystemRestBean.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/src/main/java/org/dieschnittstelle/jee/esa/ejb/ejbmodule/erp/crud/StockSystemSingleton.java löschen
+Würde org.dieschnittstelle.jee.esa.ejb.ejbmodule.erp/target/ löschen
+Würde org.dieschnittstelle.jee.esa.ejb.webapp/target/ löschen
+Würde org.dieschnittstelle.jee.esa.ejb/target/ löschen
+Würde org.dieschnittstelle.jee.esa.jrs.api/target/ löschen
+Würde org.dieschnittstelle.jee.esa.jrs.client/target/ löschen
+Würde org.dieschnittstelle.jee.esa.jrs/target/ löschen
+Würde org.dieschnittstelle.jee.esa.jws.client/target/ löschen
+Würde org.dieschnittstelle.jee.esa.lib.entities.crm/target/ löschen
+Würde org.dieschnittstelle.jee.esa.lib.entities.erp/target/ löschen
+Würde org.dieschnittstelle.jee.esa.lib.utils/target/ löschen
+Würde org.dieschnittstelle.jee.esa.ue.add2/target/ löschen
+Würde org.dieschnittstelle.jee.esa.ue.add3/target/ löschen
+Würde org.dieschnittstelle.jee.esa.ue.jws5/target/ löschen
+Würde org.dieschnittstelle.jee.esa.wsv.client/target/ löschen
+Würde "\342\210\274/" löschen
+.idea
+*/target/*
+.DS_Store

@@ -1,6 +1,7 @@
 package org.dieschnittstelle.jee.esa.entities.erp;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +23,8 @@ public class PointOfSale implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3397160788902953608L;
-	
-	protected static Logger logger = Logger.getLogger(PointOfSale.class);
+
+    private static Logger logger = Logger.getLogger(PointOfSale.class);
 	
 	@Id
 	@GeneratedValue
@@ -80,5 +81,23 @@ public class PointOfSale implements Serializable {
 		logger.info("@PreUpdate: " + this);		
 	}
 
+    @Override
+    public String toString() {
+        return "PointOfSale{" +
+                "id=" + id +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PointOfSale)) return false;
+        PointOfSale that = (PointOfSale) o;
+        return getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }
